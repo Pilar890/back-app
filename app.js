@@ -15,6 +15,13 @@ import usersRouter from './routes/users.js'
 import {__dirname} from './utils.js'
 
 let app = express();
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Credentials", "true");
+  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.set("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,POST,DELETE");
+  next();
+}); // esto es para habilitar cors
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
