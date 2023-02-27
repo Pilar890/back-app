@@ -2,6 +2,7 @@ import  express  from 'express';
 import path from 'path';
 import 'dotenv/config.js';
 import './config/database.js';
+import cors from 'cors'
 
 
 import cookieParser from 'cookie-parser';
@@ -15,15 +16,19 @@ import usersRouter from './routes/users.js'
 import {__dirname} from './utils.js'
 
 let app = express();
+ 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors()) // esto es para habilitar cors
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
